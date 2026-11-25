@@ -347,6 +347,540 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "ish",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const user = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"id is a number\", function () {\r",
+              "    pm.expect(user.id).to.be.a(\"number\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"name is a non-empty string\", function () {\r",
+              "    pm.expect(user.name).to.be.a(\"string\").and.not.be.empty;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"email looks valid\", function () {\r",
+              "    pm.expect(user.email).to.match(/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"nested field: address.city exists\", function () {\r",
+              "    pm.expect(user.address).to.have.property(\"city\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"nested field: company.name is a string\", function () {\r",
+              "    pm.expect(user.company.name).to.be.a(\"string\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time under 1500 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/users/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": " User Types",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const user = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"id is a number\", function () {\r",
+              "    pm.expect(user.id).to.be.a(\"number\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"name is a non-empty string\", function () {\r",
+              "    pm.expect(user.name).to.be.a(\"string\").and.not.be.empty;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"email looks valid\", function () {\r",
+              "    pm.expect(user.email).to.match(/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"nested field: address.city exists\", function () {\r",
+              "    pm.expect(user.address).to.have.property(\"city\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"nested field: company.name is a string\", function () {\r",
+              "    pm.expect(user.company.name).to.be.a(\"string\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time under 1500 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/users/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Posts Array",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const posts = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Returns an array of 100 posts\", function () {\r",
+              "    pm.expect(posts).to.be.an(\"array\").with.lengthOf(100);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Every post has exactly the expected fields\", function () {\r",
+              "    posts.forEach(function (post) {\r",
+              "        pm.expect(post).to.have.all.keys(\"userId\", \"id\", \"title\", \"body\");\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              "pm.test(\"All ids are unique\", function () {\r",
+              "    var ids = posts.map(function (p) { return p.id; });\r",
+              "    pm.expect(new Set(ids).size).to.eql(ids.length);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status is 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Body is empty\", function () {\r",
+              "    pm.expect(pm.response.json()).to.be.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/9999",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "9999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "401nologin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status is 401 without login\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/basic-auth",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "basic-auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "401wrongpassword",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status is 401 without login\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});"
+            ],
+            "packages": {},
+            "requests": {},
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{auth_password_0woa}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "postman",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/basic-auth",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "basic-auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "400",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status is 400 Bad Request\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/status/400",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "status",
+            "400"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "500",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status is 400 Bad Request\", function () {\r",
+              "    pm.response.to.have.status(500);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/status/500",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "status",
+            "500"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "0",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Invalid id returns 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/0",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "0"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "-1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Invalid id returns 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/-1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "-1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "abc",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Invalid id returns 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/abc",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "abc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "emptyfilter",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Empty list, not an error\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "    pm.expect(pm.response.json()).to.be.an(\"array\").with.lengthOf(0);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/comments?postId=9999",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "comments"
+          ],
+          "query": [
+            {
+              "key": "postId",
+              "value": "9999"
+            }
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "variable": [
@@ -357,6 +891,18 @@
     {
       "key": "bearer_token_093v",
       "secret": true
+    },
+    {
+      "key": "auth_password_0woa",
+      "secret": true,
+      "source": {
+        "provider": "postman",
+        "postman": {
+          "type": "cloud",
+          "secretId": "3d89c2da-b0e4-46dc-9df8-a5daf934826c",
+          "vaultId": "0152f929-39c5-4629-a5dd-3e7b7d03a600"
+        }
+      }
     }
   ]
 }
