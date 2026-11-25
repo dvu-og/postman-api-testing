@@ -11,6 +11,7 @@ API testing project using Postman and Newman on the jsonplaceholder and postman-
 - Negative testing
 - Data-driven testing with a CSV file
 - Running the collection with Newman
+- query params, assertions and the Postman Runner result
 
 ## How to run
 
